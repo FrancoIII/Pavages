@@ -29,7 +29,7 @@ def plot(chem):
     for point in chem:
         x += [point[0]]
         y += [point[1]]
-    plt.plot(x, y, 'w:')
+    plt.plot(x, y, '')
     for i in range(1, len(chem)):
         if chem[i][2]:
             plt.plot(x[i], y[i], 'ro')
@@ -45,7 +45,7 @@ def plot_pav(w):
         current[2] = char
         chem += [copy(current)]
     plot(chem)
-    line(w)
+    # line(w)
     t_line(chem)
     plt.show()
 
@@ -61,5 +61,40 @@ def t_line(chem):
     plt.plot([0, chem[-1][0]], [0, chem[-1][0] * direct], 'b-')
 
 
-wo = pav_fib(75)
-print(wo)
+def scal_(vect1, vect2):
+    return vect1[0]*vect2[0] + vect1[1]*vect2[1]
+
+
+def proj_plot(w, orth_dir):
+    chem = [[0, 0]]
+    current = [0, 0, None]
+    for char in w:
+        current[char] += 1
+        current[2] = char
+        chem += [copy(current)]
+    proj_set = []
+    for point in chem[1:]:
+        scal = scal_(point, orth_dir)
+        proj = [scal*orth_dir[0], scal*orth_dir[1], point[2]]
+        proj_set += [proj.copy()]
+    x = []
+    y = []
+    for point in proj_set:
+        x += [point[0]]
+        y += [point[1]]
+    for i in range(1, len(proj_set)):
+        if proj_set[i][2]:
+            plt.plot(x[i], y[i], 'r.')
+        else:
+            plt.plot(x[i], y[i], 'g.')
+
+
+phi = (1 + sqrt(5))/2
+norm = scal_([-1, phi], [-1, phi])
+orth_dir = [-1/sqrt(norm), phi/sqrt(norm)]
+
+wo = pav_fib(50)
+
+proj_plot(wo, orth_dir)
+
+plot_pav(wo)

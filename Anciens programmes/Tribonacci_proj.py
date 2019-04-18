@@ -27,6 +27,8 @@ def pav_trib(length):
 
 
 def plot(w):
+    global tri_const
+    l_w = len(w)
     chem = gen_chem(w)
     x = []
     y = []
@@ -35,7 +37,7 @@ def plot(w):
         x += [point[0]]
         y += [point[1]]
         z += [point[2]]
-    ax.plot(x, y, z, 'w:')
+    ax.plot(x, y, z, 'b-')
     for i in range(1, len(chem)):
         if chem[i][3] == 1:
             ax.plot([x[i]], [y[i]], [z[i]], 'ro')
@@ -43,9 +45,9 @@ def plot(w):
             ax.plot([x[i]], [y[i]], [z[i]], 'go')
         else:
             ax.plot([x[i]], [y[i]], [z[i]], 'bo')
-    num0 = w.count(0)
-    num1 = w.count(1)
-    num2 = w.count(2)
+    num0 = l_w/tri_const
+    num1 = l_w/(tri_const)**2
+    num2 = l_w/(tri_const)**3
     ax.plot([0, num0], [0, num1], [0, num2], 'y-')
 
 
@@ -124,11 +126,11 @@ def plot_2D_proj(w):
         x = [scal(p, vectX)]
         y = [scal(p, vectY)]
         if point[3] == 1:
-            plt.plot(x, y, 'ro')
+            plt.plot(x, y, 'r.')
         elif point[3] == 0:
-            plt.plot(x, y, 'go')
+            plt.plot(x, y, 'g.')
         else:
-            plt.plot(x, y, 'bo')
+            plt.plot(x, y, 'b.')
 
 
 def bon(dir):
@@ -158,11 +160,11 @@ def plot_2D_proj_t(w, dir):
         x = [scal(p, vectX)]
         y = [scal(p, vectY)]
         if point[3] == 1:
-            plt.plot(x, y, 'ro')
+            plt.plot(x, y, 'r.')
         elif point[3] == 0:
-            plt.plot(x, y, 'go')
+            plt.plot(x, y, 'g.')
         else:
-            plt.plot(x, y, 'bo')
+            plt.plot(x, y, 'b.')
 
 
 tri_const = 1.8392867552141611321
@@ -175,21 +177,24 @@ ax = fig.add_subplot(111, projection='3d')
 
 wo = pav_trib(10)
 plot(wo)
-plot_proj(wo)
+# plot_proj(wo)
 
 
 plt.show()
 
 
-w = pav_trib(10)
-plot_2D_proj(w)
+# w = pav_trib(10)
+# plot_2D_proj(w)
 
 
-plt.show()
+# plt.show()
 
 
-w_ = pav_trib(100000)
-plot_2D_proj_t(w_, tri_dir)
+# w_ = pav_trib(100000)
+# plot_2D_proj_t(w_, tri_dir)
 
 
-plt.show()
+# plt.show()
+
+print(pav_trib(10))
+
